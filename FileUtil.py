@@ -11,19 +11,16 @@ from datetime import date
 def DeleteOldFiles(path,maxage,pattern):
   result = ("path={0} maxage={1} pattern={2}\n".format(path,maxage,pattern))
   # define the path
-  #  currentDirectory = pathlib.Path(path)
   dirs = os.listdir( path )
 
-
+# loop thru files and sub-directories in the directory
   for currentFile in sorted(dirs):  
   #    print(currentFile)
+    # Check for patter match of File name
     if fnmatch.fnmatch(currentFile, pattern):
-  #      if os.path.isdir(currentFile):
-  #        print("It is a Directory-{0}".format(currentFile))
       pathplusfilename = path + currentFile
+      # Check if name is file and not sub directory
       if os.path.isfile(pathplusfilename):  
-  #        print("It is a normal file-{0}".format(currentFile)) 
-        pathplusfilename = path + currentFile
         #look for timestamp in name
         regex = re.compile(r'(\d{2})(\d{2})(\d{2})\-(\d{5})\.tar\.gz') 
         match = regex.search(str(currentFile))
@@ -37,6 +34,7 @@ def DeleteOldFiles(path,maxage,pattern):
   #          print('Date={0} Time={1}'.format(datestring,timestring))
           fromdate = date(year,month,day)
           currentdate = date.today()
+          # calculate difference between file date and today
           agedays = (currentdate-fromdate).days
   #          print("DAYS={0}".format(agedays))
           if agedays > maxage:
