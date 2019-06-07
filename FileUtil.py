@@ -22,7 +22,7 @@ def DeleteOldFiles(path,maxage,pattern):
       # Check if name is file and not sub directory
       if os.path.isfile(pathplusfilename):  
         #look for timestamp in name
-        regex = re.compile(r'(\d{2})(\d{2})(\d{2})\-(\d{5})\.tar\.gz') 
+        regex = re.compile(r'(\d{2})(\d{2})(\d{2})\-(\d{6})\.tar\.gz') 
         match = regex.search(str(currentFile))
         if match:
           year = 2000 + int(match.group(1))
